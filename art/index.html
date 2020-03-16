@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <!-- <div class="collection">
+    </div> -->
+    <!-- <div class="name textHover">
+        Noisy Blobs
+    </div> -->
+    <div style="position: absolute;left: 0;top: 0;">
+        <div id="time" style="color: white;font-size: 100px;font-family: 'Laila', serif">00:00:00</div>
+    </div>
+</body>
+<script>
+    var time = document.getElementById('time')
+    setInterval(()=>{
+        var data = new Date()
+        var h = data.getHours()
+        var m = data.getMinutes()
+        var s = data.getSeconds()
+        time.innerText = (h < 10 ? '0' + h : h) + ':' + (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s)
+    },1000)
+</script>
+<script src="./BbBxRG.js"></script>
+<script src="./dat.gui.min.js"></script>
+<script src="./script.js"></script>
+</html>
