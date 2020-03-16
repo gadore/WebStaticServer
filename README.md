@@ -1,0 +1,2 @@
+# WebStaticServer
+web practice
