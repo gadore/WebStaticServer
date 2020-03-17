@@ -1,1 +1,9 @@
-{"dirBank":["http://localhost:5050/artOfNoice","http://localhost:5050/testDir"]}
+{
+    "dirBank": [{
+        "title": "artOfNoice",
+        "url": "http://localhost:5050/artOfNoice"
+    }, {
+        "title": "testDir",
+        "url": "http://localhost:5050/testDir"
+    }]
+}

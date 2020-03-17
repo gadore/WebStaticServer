@@ -1,8 +1,6 @@
 const path = require('path')
 const fs = require('fs')
 
-console.log(process.argv)
-
 var currentHref = process.argv[2]
 
 var homeDir = __dirname
@@ -17,12 +15,14 @@ fs.readFile('./serverConfig.json',function(error,data){
     config.dirBank = []
     listDir.forEach(f => {
         if (f != '.git' && f != 'static') {
+            var newSite = new Object()
+            newSite.title = f
             let fullPath = homeDir + '/' + f
             let fileStatus = fs.statSync(fullPath)
             if (fileStatus.isDirectory()) {
-                f = currentHref + f
-                console.log(f)
-                config.dirBank.push(f)
+                newSite.url = currentHref + f
+                console.log(newSite.title)
+                config.dirBank.push(newSite)
                 dirCount++
             }
         }

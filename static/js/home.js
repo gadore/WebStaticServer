@@ -1,12 +1,12 @@
 var configPath = './serverConfig.json'
 
     function mkSubSiteList(bank){
-        bank.forEach(dir => {
-            console.log(dir)
+        bank.forEach(site => {
+            // console.log(site)
             var a = document.createElement('a')
-            a.innerText = dir
-            a.setAttribute('href',dir)
-            document.getElementById('container').appendChild(a)
+            a.innerText = site.title
+            a.setAttribute('href',site.url)
+            document.getElementById('linkBox').appendChild(a)
         });
     }
 
