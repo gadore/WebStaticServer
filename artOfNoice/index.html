@@ -7,14 +7,19 @@
     <title>Noisy</title>
     <link rel="stylesheet" href="./artOfNoice/style.css">
 </head>
-<body>
+<style>
+    .hide{
+        display: none;
+    }
+</style>
+<body id="body">
     <canvas id="canvas"></canvas>
     <!-- <div class="collection">
     </div> -->
     <!-- <div class="name textHover">
         Noisy Blobs
     </div> -->
-    <div style="position: absolute;left: 1em;top: 0;">
+    <div id="container" style="position: absolute;left: 1em;top: 0;">
         <div id="time" style="color: white;font-size: 100px;font-family: 'Laila', serif">00:00:00</div>
     </div>
 </body>
@@ -27,6 +32,16 @@
         var s = data.getSeconds()
         time.innerText = (h < 10 ? '0' + h : h) + ':' + (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s)
     },1000)
+    document.getElementById('body').onkeydown = function(e){
+        if(e.code == 'Space'){
+            console.log('space')
+            document.getElementById('container').classList.remove('hide')
+        }
+        if(e.code == 'Escape'){
+            console.log('Escape')
+            document.getElementById('container').classList.add('hide')
+        }
+    }
 </script>
 <script src="./artOfNoice/BbBxRG.js"></script>
 <script src="./artOfNoice/dat.gui.min.js"></script>

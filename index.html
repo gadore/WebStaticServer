@@ -9,13 +9,25 @@
     <link rel="stylesheet" href="./static/css/home.css">
 </head>
 
-<body onload="getJsonContentFromServer()">
+<body id="body" onload="getJsonContentFromServer()">
     <div id="stars"></div>
     <div id="stars2"></div>
     <div id="stars3"></div>
     
-    <div id="container">
+    <div id="container" class="non hide">
         <div id="linkBox"></div>
     </div>
 </body>
+<script>
+    document.getElementById('body').onkeydown = function(e){
+        if(e.code == 'Space'){
+            console.log('space')
+            document.getElementById('container').classList.remove('hide')
+        }
+        if(e.code == 'Escape'){
+            console.log('Escape')
+            document.getElementById('container').classList.add('hide')
+        }
+    }
+</script>
 </html>
