@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .bulb {
+            background-color: gray;
+            width: 400px;
+            height: 400px;
+            border-radius: 200px;
+        }
+
+        .zuo {
+            background-color: lightblue;
+            width: 200px;
+            height: 200px;
+            margin-left: 100px;
+            margin-top: -27px;
+        }
+
+        .inline {
+
+            display: inline-block;
+        }
+    </style>
+
+</head>
+
+<body onload="bulb()">
+    <div>
+        <div class="inline">
+            <div class="bulb "></div>
+            <div class="zuo"></div>
+        </div>
+
+        <div class="inline">
+            <div class="bulb "></div>
+            <div class="zuo"></div>
+        </div>
+
+        <div class="inline">
+            <div class="bulb "></div>
+            <div class="zuo"></div>
+        </div>
+
+    </div>
+</body>
+<script>
+    function bulb() {
+        var aa=document.getElementsByClassName("bulb")
+        var  sum = 1
+        setInterval(() => {
+            aa[(sum-1)%aa.length].style.backgroundColor="gray"
+            aa[(sum)%aa.length].style.backgroundColor="yellow"
+            sum++
+        }, 1000);
+
+
+
+    }
+</script>
+
+</html>
