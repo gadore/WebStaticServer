@@ -103,7 +103,7 @@ function computeLyric() {
         lyricBox.appendChild(li)
     })
     document.getElementById('lyric_' + LyricBank.startPosition).style.color = 'red'
-    // console.log(LyricBank.data)
+    document.getElementById('lyric_' + LyricBank.startPosition).scrollIntoView()
 }
 
 function getMusicIdByIndex(index) {
