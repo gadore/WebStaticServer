@@ -14,7 +14,7 @@ let musicPlayer = document.getElementById('musicPlayer')
 
 let lyricBox = document.getElementById('lyric')
 
-let cloudApi = 'http://localhost:5678/'
+let cloudApi = 'http://server.gadore.me:2333/'
 let customUrl = 'http://music.163.com/playlist/72210253/68328243/?userid=68328243'
 
 function getMusicList() {
@@ -43,6 +43,29 @@ function initCurrentMusicLists() {
     })
 }
 
+function initKeyEvent(){
+    document.onkeydown = function(e){
+        switch(e.code){
+            case 'Escape':
+                if(document.getElementById('songListBox').classList.value.search('hide')== -1){
+                    document.getElementById('songListBox').classList.add('hide')
+                }else{
+                    document.getElementById('songListBox').classList.remove('hide')
+                }
+                break;
+            case 'Space':
+                if(musicPlayer.paused){
+                    musicPlayer.play()
+                    document.getElementById('coverBox').classList.add('rotate')
+                }else{
+                    musicPlayer.pause()
+                    document.getElementById('coverBox').classList.remove('rotate')
+                }
+                break;
+        }
+    }
+}
+
 function refreshScreen() {
     if(currentLyric[0] == 'no lyric'){
         return
@@ -63,14 +86,11 @@ function refreshScreen() {
 
 function fetchCoverImage(){
     var data = {
-        url: 'http://music.163.com/api/song/media?id=' + getMusicIdByIndex(currentMusicIndex)
+        url: 'https://music.163.com/song?id=' + getMusicIdByIndex(currentMusicIndex)
     }
     $.post(cloudApi+'cover', JSON.stringify(data), function (result) {
-        console.log(result)
-        // musicBank = JSON.parse(result).data
-        // currentMusicCount = musicBank.length
-        // initCurrentMusicLists()
-        // setCurrentPlayMusic()
+        result = JSON.parse(result)
+        document.getElementById('cover').setAttribute('src',result.data)
     });
 }
 
@@ -141,6 +161,10 @@ function setCurrentPlayMusic() {
     document.getElementById('song_' + currentMusicIndex).style.color = 'blue'
     fetchMusicLyrics(getMusicIdByIndex(currentMusicIndex))
     fetchCoverImage()
+    if(!musicPlayer.paused){
+        if(document.getElementById('coverBox').classList.value.search('rotate') == -1)
+            document.getElementById('coverBox').classList.add('rotate')
+    }
 }
 
 function playNextOne() {
@@ -148,3 +172,5 @@ function playNextOne() {
     currentMusicIndex = parseInt(currentMusicIndex % currentMusicCount)
     setCurrentPlayMusic()
 }
+
+initKeyEvent()

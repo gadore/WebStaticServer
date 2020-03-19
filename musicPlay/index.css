@@ -15,7 +15,7 @@
 
 #songLists>li{
     font-size: 20px;
-    line-height: 30px;
+    line-height: 40px;
     cursor: pointer;
     user-select: none;
 }
@@ -23,7 +23,7 @@
 #lyric{
     width: 400px;
     margin: 0 auto;
-    height: 500px;
+    height: 800px;
     overflow: scroll;
 }
 
@@ -31,4 +31,37 @@
     font-size: 16px;
     color: gray;
     line-height: 40px;
+}
+
+#playBox{
+    margin-top: 20px;
+}
+
+#coverBox{
+    width: 400px;
+    height: 400px;
+    border-radius: 200px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 200px;
+    margin-top: 200px;
+}
+
+#cover{
+    width: 400px;
+    height: 400px;
+}
+
+.rotate{
+    animation: roll 20s linear infinite;
+}
+
+@keyframes roll{
+    from{
+        transform: rotate(0deg);
+    }to{
+        transform: rotate(360deg);
+    }
 }

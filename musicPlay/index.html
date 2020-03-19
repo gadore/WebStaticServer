@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./index.css">
-    <link rel="stylesheet" href="../static/bootstrap-3.3.7/css/bootstrap.css">
-    <link rel="stylesheet" href="../static/bootstrap-3.3.7/css/bootstrap-theme.css">
-    <script src="../static/js/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="./musicPlay/index.css">
+    <link rel="stylesheet" href="./static/bootstrap-3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="./static/bootstrap-3.3.7/css/bootstrap-theme.css">
+    <script src="./static/js/jquery-3.4.1.js"></script>
     <title>Gadore's Music</title>
 </head>
 
@@ -16,19 +16,23 @@
     <h1 class="text-center" id="currentMusicName"></h1>
 
     <div class="text-center">
-        <audio onloadstart="refreshScreen()" id="musicPlayer" src="" autoplay controls onended="playNextOne()"></audio>
-    </div>
-
-    <div class="text-center">
         <ul id="lyric" class="list-unstyled"></ul>
     </div>
 
-    <div class="musicList">
+    <div class="text-center" id="playBox" style="margin: 0 auto;vertical-align: bottom;">
+        <audio onloadstart="refreshScreen()" id="musicPlayer" src="" autoplay controls onended="playNextOne()"></audio>
+    </div>
+
+    <div class="musicList test" id="songListBox">
         <ul class="list-unstyled" id="songLists"></ul>
     </div>
 
+    <div id="coverBox" class="test">
+        <img src="" alt="" id="cover">
+    </div>
+
 </body>
-<script src="./index.js"></script>
-<script src="../static/bootstrap-3.3.7/js/bootstrap.js"></script>
+<script src="./musicPlay/index.js"></script>
+<script src="./static/bootstrap-3.3.7/js/bootstrap.js"></script>
 
 </html>
