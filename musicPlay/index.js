@@ -14,14 +14,14 @@ let musicPlayer = document.getElementById('musicPlayer')
 
 let lyricBox = document.getElementById('lyric')
 
-let cloudApi = 'http://localhost:5678/music'
+let cloudApi = 'http://localhost:5678/'
 let customUrl = 'http://music.163.com/playlist/72210253/68328243/?userid=68328243'
 
 function getMusicList() {
     var data = {
         url: customUrl
     }
-    $.post(cloudApi, JSON.stringify(data), function (result) {
+    $.post(cloudApi+'music', JSON.stringify(data), function (result) {
         musicBank = JSON.parse(result).data
         currentMusicCount = musicBank.length
         initCurrentMusicLists()
@@ -44,6 +44,9 @@ function initCurrentMusicLists() {
 }
 
 function refreshScreen() {
+    if(currentLyric[0] == 'no lyric'){
+        return
+    }
     setInterval(() => {
         if (LyricBank.data[LyricBank.startPosition + 1] != undefined) {
             var pri = parseFloat(musicPlayer.currentTime - LyricBank.data[LyricBank.startPosition].timePosition)
@@ -58,6 +61,19 @@ function refreshScreen() {
     }, 1000)
 }
 
+function fetchCoverImage(){
+    var data = {
+        url: 'http://music.163.com/api/song/media?id=' + getMusicIdByIndex(currentMusicIndex)
+    }
+    $.post(cloudApi+'cover', JSON.stringify(data), function (result) {
+        console.log(result)
+        // musicBank = JSON.parse(result).data
+        // currentMusicCount = musicBank.length
+        // initCurrentMusicLists()
+        // setCurrentPlayMusic()
+    });
+}
+
 function fetchMusicLyrics(id) {
     $.ajax({
         type: "get",
@@ -65,8 +81,13 @@ function fetchMusicLyrics(id) {
         dataType: "jsonp",
         jsonp: "callback",
         success: function (data) {
-            var currentLyricStr = data.code == 200 ? data.lyric : 'no lyric'
-            currentLyric = currentLyricStr.split(/[\r\n]/g)
+            currentLyric.length = 0
+            var currentLyricStr = data.lyric
+            if(currentLyricStr != undefined){
+                currentLyric = currentLyricStr.split(/[\r\n]/g)
+            }else{
+                currentLyric.push('no lyric')
+            }
             computeLyric()
         }
     });
@@ -77,6 +98,9 @@ function computeLyric() {
     LyricBank.startTime = 999
     LyricBank.data.length = 0
     lyricBox.innerHTML = ""
+    if(currentLyric[0] == 'no lyric'){
+        return
+    }
     currentLyric.forEach((item, index) => {
         var tempLine = item.substr(1, 8).replace(':', '')
         var lyric = new Object()
@@ -116,6 +140,7 @@ function setCurrentPlayMusic() {
     musicPlayer.setAttribute('src', musicUrl)
     document.getElementById('song_' + currentMusicIndex).style.color = 'blue'
     fetchMusicLyrics(getMusicIdByIndex(currentMusicIndex))
+    fetchCoverImage()
 }
 
 function playNextOne() {
