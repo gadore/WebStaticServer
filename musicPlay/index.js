@@ -85,10 +85,7 @@ function refreshScreen() {
 }
 
 function fetchCoverImage(){
-    var data = {
-        url: 'https://music.163.com/song?id=' + getMusicIdByIndex(currentMusicIndex)
-    }
-    $.post(cloudApi+'cover', JSON.stringify(data), function (result) {
+    $.post(cloudApi+'cover/?id='+getMusicIdByIndex(currentMusicIndex), JSON.stringify(data), function (result) {
         document.getElementById('cover').setAttribute('src',result.data)
     });
 }
