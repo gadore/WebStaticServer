@@ -14,7 +14,7 @@ let musicPlayer = document.getElementById('musicPlayer')
 
 let lyricBox = document.getElementById('lyric')
 
-let cloudApi = 'http://127.0.0.1:2333/'
+let cloudApi = 'http://server.gadore.me:2333/'
 let customUrl = 'http://music.163.com/playlist/72210253/68328243/?userid=68328243'
 
 function getMusicList() {
