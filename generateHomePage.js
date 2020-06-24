@@ -1,7 +1,10 @@
 const path = require('path')
 const fs = require('fs')
 
-var currentHref = process.argv[2]
+var host = process.argv[2]
+var port = process.argv[3]
+
+var currentHref = 'http://' + host + ':' + port + '/'
 
 var homeDir = __dirname
 var listDir = fs.readdirSync('./')

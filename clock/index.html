@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <style>
+        html,body {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+        }
+        #app {
+            font-size: 460px;
+            height: 100%;
+            width: 100%;
+            text-align: center;
+        }
+        .light {
+            background-color: white;
+            color: black;
+        }
+        .dark {
+            background-color: black;
+            color: white;
+        }
+        #trigger {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dark" id="trigger" onclick="changeTheme()"> </div>
+    <div class="light" id="app"></div>
+</body>
+<script>
+    let app = document.getElementById('app')
+    let trigger = document.getElementById('trigger')
+    let userTrigger = false
+    function getTimeString() {
+        let now = new Date()
+        let hour = now.getHours()
+        let minute = now.getMinutes()
+        let second = now.getSeconds()
+        hour = hour > 9 ? hour : '0' + hour
+        minute = minute > 9 ? minute : '0' + minute
+        second = second > 9 ? second : '0' + second
+        let timeString = hour + ':' + minute + ':' + second
+
+        if(!userTrigger){autoSwitchTheme(hour)}
+
+        return timeString
+    }
+    function autoSwitchTheme(hour){
+        if((hour >= 19 && hour <= 24) || (hour >=0 && hour < 19)){
+            switchTheme('dark')
+        }else{
+            switchTheme('light')
+        }
+    }
+    function changeTheme() {
+        userTrigger = true
+        if (trigger.classList.contains('dark')) {
+            switchTheme('dark')
+        } else {
+            switchTheme('light')
+        }
+    }
+    function switchTheme(theme) {
+        switch (theme) {
+            case 'dark':
+                trigger.classList.add('light')
+                trigger.classList.remove('dark')
+                app.classList.add('dark')
+                app.classList.remove('light')
+                break
+            case 'light':
+                trigger.classList.add('dark')
+                trigger.classList.remove('light')
+                app.classList.add('light')
+                app.classList.remove('dark')
+                break
+        }
+    }
+
+    setInterval(() => {
+        app.innerText = getTimeString()
+    }, 1000)
+</script>
+
+</html>
