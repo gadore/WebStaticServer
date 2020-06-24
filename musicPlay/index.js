@@ -22,7 +22,7 @@ function getMusicList() {
         url: customUrl
     }
     $.post(cloudApi+'music', JSON.stringify(data), function (result) {
-        musicBank = JSON.parse(result).data
+        musicBank = result.data
         currentMusicCount = musicBank.length
         initCurrentMusicLists()
         setCurrentPlayMusic()
@@ -85,11 +85,7 @@ function refreshScreen() {
 }
 
 function fetchCoverImage(){
-    var data = {
-        url: 'https://music.163.com/song?id=' + getMusicIdByIndex(currentMusicIndex)
-    }
-    $.post(cloudApi+'cover', JSON.stringify(data), function (result) {
-        result = JSON.parse(result)
+    $.post(cloudApi+'cover?id='+getMusicIdByIndex(currentMusicIndex), null, function (result) {
         document.getElementById('cover').setAttribute('src',result.data)
     });
 }
@@ -168,6 +164,7 @@ function setCurrentPlayMusic() {
 }
 
 function playNextOne() {
+    document.getElementById('song_' + currentMusicIndex).style.color = 'black'
     currentMusicIndex++
     currentMusicIndex = parseInt(currentMusicIndex % currentMusicCount)
     setCurrentPlayMusic()
