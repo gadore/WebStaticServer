@@ -22,7 +22,8 @@ function getMusicList() {
         url: customUrl
     }
     $.post(cloudApi+'music', JSON.stringify(data), function (result) {
-        musicBank = result.data
+        musicBank = JSON.parse(result).data
+        console.log(musicBank)
         currentMusicCount = musicBank.length
         initCurrentMusicLists()
         setCurrentPlayMusic()
