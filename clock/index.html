@@ -11,8 +11,19 @@
             margin: 0;
             height: 100%;
         }
+        .red{
+            color:red !important;
+        }
+        .big-header{
+            font-size: 300px;
+            width: 400px;
+            height: 400px;
+            border-radius: 200px;
+            display: inline-block;
+            text-align: center;
+        }
         #app {
-            font-size: 460px;
+            font-size: 400px;
             height: 100%;
             width: 100%;
             text-align: center;
@@ -33,17 +44,31 @@
             height: 20px;
             border-radius: 10px;
         }
+        .bottom-container{
+            width: 100%;
+            margin-top: -500px;
+            padding-left: 80px;
+        }
     </style>
 </head>
 
 <body>
     <div class="dark" id="trigger" onclick="changeTheme()"> </div>
     <div class="light" id="app"></div>
+    <div class="bottom-container">
+        <div class="light big-header" id="counter">0</div>
+        <div class="light big-header step red">A</div>
+        <div class="light big-header step">B</div>
+        <div class="light big-header step">C</div>
+    </div>
 </body>
 <script>
     let app = document.getElementById('app')
     let trigger = document.getElementById('trigger')
+    let steps = document.getElementsByClassName('step')
+    let counter = document.getElementById('counter')
     let userTrigger = false
+    let countFlag = 0
     function getTimeString() {
         let now = new Date()
         let hour = now.getHours()
@@ -76,20 +101,47 @@
     function switchTheme(theme) {
         switch (theme) {
             case 'dark':
+                let tempAry = document.getElementsByClassName('light')
+                for(let i=0;i<tempAry.length;i++){
+                    tempAry[i].classList.add('dark')
+                    tempAry[i].classList.remove('light')
+                }
+                for(let k=0;k<steps.length;k++){
+                    steps[k].classList.add('dark')
+                    steps[k].classList.remove('light')
+                }
+                counter.classList.add('light')
+                counter.classList.remove('dark')
                 trigger.classList.add('light')
                 trigger.classList.remove('dark')
-                app.classList.add('dark')
-                app.classList.remove('light')
                 break
             case 'light':
+                let tempAry1 = document.getElementsByClassName('dark')
+                for(let j=0;j<tempAry1.length;j++){
+                    tempAry1[j].classList.add('light')
+                    tempAry1[j].classList.remove('dark')
+                }
+                for(let k=0;k<steps.length;k++){
+                    steps[k].classList.remove('dark')
+                    steps[k].classList.add('light')
+                }
+                counter.classList.remove('light')
+                counter.classList.add('dark')
                 trigger.classList.add('dark')
                 trigger.classList.remove('light')
-                app.classList.add('light')
-                app.classList.remove('dark')
                 break
         }
     }
-
+    document.onkeydown = function(e){
+        switch(e.code){
+            case 'Space':
+                countFlag++
+                document.getElementsByClassName('red')[0].classList.remove('red')
+                steps[countFlag%3].classList.add('red')
+                counter.innerText = parseInt(countFlag/3)
+                break
+        }
+    }
     setInterval(() => {
         app.innerText = getTimeString()
     }, 1000)
